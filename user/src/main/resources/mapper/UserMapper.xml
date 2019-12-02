@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tdzx.user.dao.UserMapper">
+
+    <select id="findMainUserByTel" resultType="com.tdzx.user.domain.TdzxMainUser">
+        select * from acc_main_user where fMobile=#{tel} and fStatue=1
+    </select>
+
+    <insert id="insertMainUser" parameterType="com.tdzx.user.domain.TdzxMainUser" useGeneratedKeys="true"
+            keyProperty="fInnerID" keyColumn="fInnerID">
+        insert into acc_main_user(fMobile,fPassWord,fRealName,fPic,fName,fCreateTime,openID,xcxOpenID)
+        values (#{fMobile},#{fPassWord},#{fRealName},#{fPic},#{fName},#{fCreateTime},#{openID},#{xcxOpenID})
+    </insert>
+
+    <select id="findMainUserByID" resultType="com.tdzx.user.domain.TdzxMainUser">
+        select * from acc_main_user where fInnerID=#{fInnerID} and fStatue=1
+    </select>
+
+    <select id="findMainUserByOpenID" resultType="com.tdzx.user.domain.TdzxMainUser">
+        select * from acc_main_user where openID=#{openID} and fStatue=1 limit 1
+    </select>
+
+    <update id="updateMainUser" parameterType="com.tdzx.user.domain.TdzxMainUser">
+        update acc_main_user
+         <set>
+             <if test="fMobile!=null and fMobile!=''">
+                 fMobile = #{fMobile},
+             </if>
+             <if test="fPassWord!=null and fPassWord!=''">
+                 fPassWord = #{fPassWord},
+             </if>
+             <if test="fRealName!=null and fRealName!=''">
+                 fRealName = #{fRealName},
+             </if>
+             <if test="fSex!=null and fSex!=0">
+                 fSex = #{fSex},
+             </if>
+             <if test="fPic!=null and fPic!=''">
+                 fPic = #{fPic},
+             </if>
+             <if test="fName!=null and fName!=''">
+                 fName = #{fName},
+             </if>
+             <if test="fBirthday!=null and fBirthday!=''">
+                 fBirthday = #{fBirthday},
+             </if>
+             <if test="fEmail!=null and fEmail!=''">
+                 fEmail = #{fEmail},
+             </if>
+             <if test="fIDCard!=null and fIDCard!=''">
+                 fIDCard = #{fIDCard},
+             </if>
+             <if test="fJob!=null and fJob!=''">
+                 fJob = #{fJob},
+             </if>
+             <if test="fProvinceID!=null and fProvinceID!=''">
+                 fProvinceID = #{fProvinceID},
+             </if>
+             <if test="fCityID!=null and fCityID!=''">
+                 fCityID = #{fCityID},
+             </if>
+             <if test="fAreaID!=null and fAreaID!=''">
+                 fAreaID = #{fAreaID},
+             </if>
+             <if test="fDetailAdress!=null and fDetailAdress!=''">
+                 fDetailAdress = #{fDetailAdress},
+             </if>
+             <if test="fSchoolID!=null and fSchoolID!=''">
+                 fSchoolID = #{fSchoolID},
+             </if>
+             <if test="fGrade!=null and fGrade!=''">
+                 fGrade = #{fGrade},
+             </if>
+             <if test="fClass!=null and fClass!=''">
+                 fClass = #{fClass},
+             </if>
+             <if test="fSurplusIntegral!=null and fSurplusIntegral!=''">
+                 fSurplusIntegral = #{fSurplusIntegral},
+             </if>
+             <if test="fStatue!=null">
+                 fStatue = #{fStatue},
+             </if>
+             <if test="fCreateTime!=null and fCreateTime!=''">
+                 fCreateTime = #{fCreateTime},
+             </if>
+             <if test="openID!=null and openID!=''">
+                 openID = #{openID},
+             </if>
+             <if test="xcxOpenID!=null and xcxOpenID!=''">
+                 xcxOpenID = #{xcxOpenID},
+             </if>
+             <if test="unionID!=null and unionID!=''">
+                 unionID = #{unionID},
+             </if>
+         </set>
+         where fInnerID=#{fInnerID}
+    </update>
+
+    <insert id="insertUserStore" parameterType="com.tdzx.user.domain.UserStore" useGeneratedKeys="true"
+            keyProperty="fInnerID" keyColumn="fInnerID">
+        insert into acc_user_store
+        (fBussType,fAcctID,fMobile,fPwd,fBirthday,
+        fName,fPic,fSex,fIntegralNum,fConsumption,fCreateTime,fJob,
+        fArea,fSchool,fGrade,fClass,fDetailAdress,fEmail)
+        values
+        (#{fBussType},#{fAcctID},#{fMobile},#{fPwd},#{fBirthday},
+        #{fName},#{fPic},#{fSex},#{fIntegralNum},#{fConsumption},#{fCreateTime},#{fJob},
+        #{fArea},#{fSchool},#{fGrade},#{fClass},#{fDetailAdress},#{fEmail})
+    </insert>
+
+    <select id="findUserThirtyByOpenID" resultType="com.tdzx.user.domain.UserThirtyaccount">
+        select * from  acc_user_thirtyaccount  where fopenid=#{openid}
+    </select>
+
+    <insert id="insertUserThirty" parameterType="com.tdzx.user.domain.UserThirtyaccount">
+        insert into acc_user_thirtyaccount(fopenid,funionid,icon,fname)
+        values (#{fopenid},#{funionid},#{icon},#{fname})
+    </insert>
+
+    <update id="updateIsDefaultAdress">
+        update acc_user_address set fIsDefaultAdress=0 where fAcctID=#{fAcctID}
+    </update>
+
+    <insert id="insertAdress" parameterType="com.tdzx.user.domain.UserAdress">
+        insert into acc_user_address(fAcctID,fAdressType,fProvince,fCity,fArea,fDetailAdress,fReceiveName,fReceiveTel,fCreateTime,fIsDefaultAdress)
+        values (#{fAcctID},#{fAdressType},#{fProvince},#{fCity},#{fArea},#{fDetailAdress},#{fReceiveName},#{fReceiveTel},#{fCreateTime},#{fIsDefaultAdress})
+    </insert>
+
+    <update id="updateUserAdress" parameterType="com.tdzx.user.domain.UserAdress">
+        update acc_user_address set fAdressType=#{fAdressType},fProvince=#{fProvince},fCity=#{fCity},fArea=#{fArea},fDetailAdress=#{fDetailAdress},
+        fReceiveName=#{fReceiveName},fReceiveTel=#{fReceiveTel},fIsDefaultAdress=#{fIsDefaultAdress} where fInnerID = #{fInnerID}
+    </update>
+
+    <select id="findUserAdress" resultType="com.tdzx.user.domain.UserAdress">
+        select * from acc_user_address where fAcctID=#{fAcctID}
+    </select>
+
+    <select id="getDeafaultUserAdress" resultType="com.tdzx.user.domain.UserAdress">
+        select * from acc_user_address where fAcctID=#{fAcctID} and fIsDefaultAdress=1 limit 1
+    </select>
+
+    <select id="getFirstUserAdress" resultType="com.tdzx.user.domain.UserAdress">
+        select * from acc_user_address where fAcctID=#{fAcctID}  limit 1
+    </select>
+
+
+    <delete id="deteleUserAdress">
+        delete from acc_user_address where  fInnerID=#{fInnerID}
+    </delete>
+
+    <select id="findMainUserByBatchID" resultType="com.tdzx.user.domain.TdzxMainUser">
+        select * from acc_main_user where fInnerID in(#{fInnerIDArr})
+    </select>
+
+    <select id="findUserMember" resultType="com.tdzx.user.domain.UserMember">
+        select * from acc_user_member where fAcctID = #{fMainUserID} and fMemTypeID!=1 and fStatue=1 order by fIsDefault desc  limit 1
+    </select>
+
+    <select id="findUserMemberFirst" resultType="com.tdzx.user.domain.UserMember">
+        select * from acc_user_member where fAcctID = #{fMainUserID} and fMemTypeID!=1 order by fIsDefault desc limit 1
+    </select>
+
+    <select id="findChuZhiMember" resultType="com.tdzx.user.domain.UserMember">
+        SELECT
+            *
+        FROM
+            acc_user_member usermember
+            left join base_member_type membertype on membertype.fInnerID = usermember.fMemTypeID
+        WHERE
+            usermember.fMemTypeID = 1 and usermember.fIsLock = 0 and fAcctID=#{fMainUserID}
+        ORDER BY
+            usermember.fBalance desc
+    </select>
+
+    <select id="findUserStore" resultType="com.tdzx.user.domain.UserStore">
+        select * from acc_user_store where fStatue=1 and fBussType=#{fBussType} and fAcctID=#{fAcctID}
+    </select>
+
+    <insert id="registryYueDing"  parameterType="com.tdzx.user.domain.UserStore"  useGeneratedKeys="true"
+            keyProperty="fInnerID" keyColumn="fInnerID">
+        insert into acc_user_store
+        (fBussType,fAcctID,fMobile,fPwd,fBirthday,
+        fName,fPic,fSex,fCreateTime,fJob,
+        fArea,fSchool,fGrade,fClass,fDetailAdress,fEmail)
+        values
+        (#{fBussType},#{fAcctID},#{fMobile},#{fPwd},#{fBirthday},
+        #{fName},#{fPic},#{fSex},#{fCreateTime},#{fJob},
+        #{fArea},#{fSchool},#{fGrade},#{fClass},#{fDetailAdress},#{fEmail})
+    </insert>
+
+    <select id="loginYueDing" resultType="com.tdzx.user.domain.UserStore">
+        select * from acc_user_store  where fName=#{fName} and fPwd = #{fPwd} and fStatue=1
+    </select>
+
+    <select id="getUserMemberList" resultType="com.tdzx.user.domain.UserMember">
+        SELECT usermember.* FROM acc_user_member usermember
+        left join  acc_user_store userstore  on   usermember.fSubUserID = userstore.fInnerID
+        where usermember.fMemTypeID!=1  and  usermember.fStatue=1
+        <if test="storeSapId!=null">
+            and usermember.store_sap_id=#{storeSapId}
+        </if>
+        <if test="fRealName!=null">
+            and userstore.fRealName=#{fRealName}
+        </if>
+        <if test="fUserName!=null">
+            and userstore.fUserName=#{fUserName}
+        </if>
+        <if test="fMemberTypeID!=null and fMemberTypeID!=0">
+            and userstore.fMemberTypeID=#{fMemberTypeID}
+        </if>
+    </select>
+
+    <update id="discountChiZhiCart">
+        update acc_user_member set fBalance = fBalance-#{fAmount},fIsLock=0  where fMemCardNum = #{fChuZhiCartNum}
+    </update>
+
+    <select id="findCountByName" resultType="java.lang.Integer">
+        select count(*) from acc_user_store where 1=1
+        <if test="fBussType!=null">
+            and fBussType = #{fBussType}
+        </if>
+        <if test="fAcctID!=null">
+            and fAcctID = #{fAcctID}
+        </if>
+        <if test="fName!=null">
+            and fName = #{fName}
+        </if>
+        <if test="fPwd!=null">
+            and fPwd = #{fPwd}
+        </if>
+    </select>
+
+
+    <select id="getBusMainUserList" resultType="com.tdzx.user.domain.TdzxMainUser" parameterType="com.tdzx.user.domain.TdzxMainUser">
+        select * from acc_main_user where 1=1
+        <if test="fRealName!=null and fRealName!=''">
+            and fRealName LIKE CONCAT("%",#{fRealName},"%")
+        </if>
+        <if test="fName!=null and fName!=''">
+            and fName  LIKE CONCAT("%",#{fName},"%")
+        </if>
+        <if test="fMobile!=null and fMobile!=''">
+            and fMobile=#{fMobile}
+        </if>
+    </select>
+
+    <select id="findUserStoreByBusstype" resultType="com.tdzx.user.domain.UserStore">
+        select
+        store.*,
+        mainuser.fMobile fMainMobile
+        from acc_user_store store left join acc_main_user mainuser on store.fAcctID = mainuser.fInnerID
+        where store.fStatue=1
+        and store.fBussType=#{fBussType}
+        <if test="fName!=null and fName!=''">
+            and store.fName LIKE CONCAT("%",#{fName},"%")
+        </if>
+        <if test="fRealName!=null and fRealName!=''">
+            and store.fRealName LIKE CONCAT("%",#{fRealName},"%")
+        </if>
+         <if test="fAcctID!=null">
+             and store.fAcctID=#{fAcctID}
+         </if>
+    </select>
+
+    <select id="findMainUserByOpenid" resultType="com.tdzx.user.domain.TdzxMainUser">
+        select * from acc_main_user where xcxOpenID = #{xcxOpenID}
+    </select>
+
+    <update id="updateUserStore" parameterType="com.tdzx.user.domain.UserStore">
+    update acc_user_store
+    <set>
+        <if test="fBussType!=null">
+            fBussType = #{fBussType},
+        </if>
+        <if test="fAcctID!=null">
+            fAcctID = #{fAcctID},
+        </if>
+        <if test="fMobile!=null">
+            fMobile = #{fMobile},
+        </if>
+        <if test="fPwd!=null">
+            fPwd = #{fPwd},
+        </if>
+        <if test="fBirthday!=null">
+            fBirthday = #{fBirthday},
+        </if>
+        <if test="fRealName!=null">
+            fRealName = #{fRealName},
+        </if>
+        <if test="fName!=null">
+            fName = #{fName},
+        </if>
+        <if test="fPic!=null">
+            fPic = #{fPic},
+        </if>
+        <if test="fSex!=null">
+            fSex = #{fSex},
+        </if>
+        <if test="fIntegralNum!=null">
+            fIntegralNum = #{fIntegralNum},
+        </if>
+        <if test="fConsumption!=null">
+            fConsumption = #{fConsumption},
+        </if>
+        <if test="fCreateTime!=null">
+            fCreateTime = #{fCreateTime},
+        </if>
+        <if test="fLastUpdateTime!=null">
+            fLastUpdateTime = #{fLastUpdateTime},
+        </if>
+        <if test="fJob!=null">
+            fJob = #{fJob},
+        </if>
+        <if test="fArea!=null">
+            fArea = #{fArea},
+        </if>
+        <if test="fSchool!=null">
+            fSchool = #{fSchool},
+        </if>
+        <if test="fGrade!=null">
+            fGrade = #{fGrade},
+        </if>
+        <if test="fClass!=null">
+            fClass = #{fClass},
+        </if>
+        <if test="fDetailAdress!=null">
+            fDetailAdress = #{fDetailAdress},
+        </if>
+        <if test="fEmail!=null">
+            fEmail = #{fEmail},
+        </if>
+        <if test="fStatue!=null">
+            fStatue = #{fStatue},
+        </if>
+    </set>
+    where  fInnerID = #{fInnerID}
+</update>
+
+
+    <update id="updateUserStoreByAcctID" parameterType="com.tdzx.user.domain.UserStore">
+        update acc_user_store
+        <set>
+            <if test="fMobile!=null">
+                fMobile = #{fMobile},
+            </if>
+            <if test="fPwd!=null">
+                fPwd = #{fPwd},
+            </if>
+            <if test="fBirthday!=null">
+                fBirthday = #{fBirthday},
+            </if>
+            <if test="fRealName!=null">
+                fRealName = #{fRealName},
+            </if>
+            <if test="fName!=null">
+                fName = #{fName},
+            </if>
+            <if test="fPic!=null">
+                fPic = #{fPic},
+            </if>
+            <if test="fSex!=null">
+                fSex = #{fSex},
+            </if>
+            <if test="fIntegralNum!=null">
+                fIntegralNum = #{fIntegralNum},
+            </if>
+            <if test="fConsumption!=null">
+                fConsumption = #{fConsumption},
+            </if>
+            <if test="fCreateTime!=null">
+                fCreateTime = #{fCreateTime},
+            </if>
+            <if test="fLastUpdateTime!=null">
+                fLastUpdateTime = #{fLastUpdateTime},
+            </if>
+            <if test="fJob!=null">
+                fJob = #{fJob},
+            </if>
+            <if test="fArea!=null">
+                fArea = #{fArea},
+            </if>
+            <if test="fSchool!=null">
+                fSchool = #{fSchool},
+            </if>
+            <if test="fGrade!=null">
+                fGrade = #{fGrade},
+            </if>
+            <if test="fClass!=null">
+                fClass = #{fClass},
+            </if>
+            <if test="fDetailAdress!=null">
+                fDetailAdress = #{fDetailAdress},
+            </if>
+            <if test="fEmail!=null">
+                fEmail = #{fEmail},
+            </if>
+            <if test="fStatue!=null">
+                fStatue = #{fStatue},
+            </if>
+        </set>
+        where
+        fBussType = #{fBussType} and fAcctID = #{fAcctID}
+    </update>
+
+    <select id="getTodayAddUser" resultType="java.lang.Integer">
+        select count(*) from acc_main_user where DATE_FORMAT(FROM_UNIXTIME(fCreateTime),'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')
+    </select>
+
+    <select id="getYesTodayAddUser" resultType="java.lang.Integer">
+        select count(*) from acc_main_user where DATE_FORMAT(FROM_UNIXTIME(fCreateTime),'%Y-%m-%d') = DATE_FORMAT(date_sub(curdate(),interval 1 day),'%Y-%m-%d')
+    </select>
+
+    <select id="getMonthAddUser" resultType="java.lang.Integer">
+        select count(*) from acc_main_user where DATE_FORMAT(FROM_UNIXTIME(fCreateTime),'%Y-%m') = DATE_FORMAT(NOW(),'%Y-%m')
+    </select>
+
+    <select id="getTotalMemberNum" resultType="java.lang.Integer">
+        SELECT COUNT(*) from acc_user_store where fBussType=1
+    </select>
+
+</mapper>

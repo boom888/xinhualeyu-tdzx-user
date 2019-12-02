@@ -1,0 +1,38 @@
+server:
+  port: 8001
+
+ip: ${ip.dev}
+
+spring:
+  profiles:
+    active: dev
+  jackson:
+    default-property-inclusion: non_null
+  #redis
+  redis:
+    host: ${ip}
+    port: 6379
+    password: ${redis.passwrod.dev}
+    timeout: 5000
+    jedis:
+      pool:
+        max-idle: 300
+  #activemq:
+  #  broker-url: tcp://${ip}:61616
+
+# 数据源
+druid:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://childrenonline.mysql.rds.aliyuncs.com:3306/user?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: ${kooche.db.username.dev}
+  password: ${kooche.db.password.dev}
+  initialSize: 1
+  minIdle: 1
+  maxActive: 100
+  testWhileIdle: true
+  testOnBorrow: false
+  validationQuery: SELECT 1
+  filters: stat
+  timeBetweenEvictionRunsMillis: 60000
+
+

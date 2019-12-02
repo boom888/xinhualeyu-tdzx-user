@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: dev
+
+#手机验证码信息
+TEL_CODE_KEY: TEL_CODE_KEY
+TEL_CODE_EXPIRE: 120
+
+#同一IP发送验证码次数
+SEND_CODE_KEY: SEND_CODE_KEY
+#过期时间:半小时30*60
+SEND_CODE_EXPIRE: 1800
+
+#应用名称
+app:
+  name: bookworm-user-web
+

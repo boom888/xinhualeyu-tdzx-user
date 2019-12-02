@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tdzx.user.dao.MemberMapper">
+
+    <select id="findMemberType" resultType="com.tdzx.user.domain.MemberType">
+        select * from base_member_type where 1=1
+        <if test="fBussType!=null">
+            and fBussType = #{fBussType}
+        </if>
+        <if test="fMemberTypeID!=null and fMemberTypeID!=0">
+            and fInnerID = #{fMemberTypeID}
+        </if>
+    </select>
+
+    <select id="findMemberTypeList" resultType="com.tdzx.user.domain.MemberType">
+        select * from base_member_type where 1=1
+        and fInnerID!=1 and fMemberName!='悦乐会员'
+        <if test="fBussType!=null">
+            and fBussType = #{fBussType}
+        </if>
+    </select>
+
+    <select id="findMemberTypeByName" resultType="com.tdzx.user.domain.MemberType">
+        select * from base_member_type where fMemberName=#{fMemberName}
+    </select>
+
+    <insert id="insertUserMember" parameterType="com.tdzx.user.domain.UserMember">
+        insert into acc_user_member(fAcctID,fSubUserID,fMemTypeID,fMemCardNum,fBalance,fDiscount,fCreateDate,fUpdateDate,fIndate,store_sap_id,fIsDefault)
+        values (#{fAcctID},#{fSubUserID},#{fMemTypeID},#{fMemCardNum},#{fBalance},#{fDiscount},#{fCreateDate},#{fUpdateDate},#{fIndate},#{storeSapId},#{fIsDefault})
+    </insert>
+
+    <update id="updateUserMemberLock">
+        update acc_user_member set fIsLock = #{fIsLock}  where fMemCardNum = #{fMemCardNum}
+    </update>
+
+    <select id="findUserMember" resultType="com.tdzx.user.domain.UserMember">
+        select * from acc_user_member where fStatue=1 and  fSubUserID=#{fSubUserID} and fMemTypeID=#{fMemberTypeID} limit 1
+    </select>
+
+    <select id="findMemberTypeByNum" resultType="com.tdzx.user.domain.MemberType">
+        select * from base_member_type  where fMemberNum = #{fMemberNum}
+    </select>
+
+    <select id="findIsExitUserMember" resultType="com.tdzx.user.domain.UserMember">
+        select * from acc_user_member where  fAcctID = #{fAcctID}  and fMemCardNum = #{fMemCardNum}
+        <if test="store_sap_id!=null">
+            and  store_sap_id = #{store_sap_id}
+        </if>
+    </select>
+
+    <select id="findMemberList" resultType="com.tdzx.user.domain.UserMember">
+        select
+        member.*,
+        member.store_sap_id storeSapId,
+        membertype.fMemberName fMemCardName
+        from acc_user_member  member left join  base_member_type membertype on membertype.fInnerID = member.fMemTypeID
+        where member.fStatue=1 and member.fAcctID = #{fAcctID}  and member.fMemTypeID!=1
+        order by member.fIsDefault desc
+    </select>
+
+    <select id="findChuZhiCartList" resultType="com.tdzx.user.domain.UserMember">
+        select
+        member.*,
+        membertype.fMemberName fMemCardName,
+        membertype.fDenomination fDenomination
+        from acc_user_member  member left join  base_member_type membertype on membertype.fInnerID = member.fMemTypeID
+        where member.fStatue=1 and member.fAcctID = #{fAcctID}  and member.fMemTypeID=1
+        order by member.fIsDefault desc
+    </select>
+
+    <delete id="deleteUserMember">
+        delete from acc_user_member where fInnerID = #{fInnerID}
+    </delete>
+
+    <update id="updateNoDefaultUserMember">
+        update acc_user_member set fIsDefault = 0  where fAcctID = #{fAcctID}
+    </update>
+
+    <update id="updateDefaultUserMember">
+        update acc_user_member set fIsDefault = 1  where fInnerID = #{fInnerID}
+    </update>
+
+    <update id="updateUserMemberJf">
+        update acc_user_member set fIntegralNum = #{fIntegralNum} where fInnerID = #{fInnerID}
+    </update>
+
+    <select id="findDefaultMember" resultType="com.tdzx.user.domain.UserMember">
+        select * from acc_user_member where fAcctID = #{fAcctID} and fMemTypeID!=1 and fIsDefault = 1 limit 1
+    </select>
+
+    <update id="unBindICCard">
+        update acc_user_member set fStatue = 0 where fMemCardNum = #{fMemCardNum}
+    </update>
+
+    <update id="updateMember" parameterType="com.tdzx.user.domain.UserMember">
+        update acc_user_member
+        <set>
+            <if test="fMemTypeID!=null and fMemTypeID!=0">
+                fMemTypeID = #{fMemTypeID},
+            </if>
+            <if test="fDiscount!=null and fDiscount!=''">
+                fDiscount = #{fDiscount},
+            </if>
+            <if test="fStatue!=null">
+                fStatue = #{fStatue},
+            </if>
+        </set>
+        where fMemCardNum = #{fMemCardNum}
+    </update>
+
+</mapper>

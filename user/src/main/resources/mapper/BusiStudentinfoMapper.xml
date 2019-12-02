@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tdzx.user.dao.BusiStudentinfoMapper">
+  <resultMap id="BaseResultMap" type="com.tdzx.user.domain.BusiStudentinfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="org_full_id" jdbcType="VARCHAR" property="orgFullId" />
+    <result column="studentname" jdbcType="VARCHAR" property="studentname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="xh" jdbcType="VARCHAR" property="xh" />
+    <result column="sfpks" jdbcType="VARCHAR" property="sfpks" />
+    <result column="jzxm" jdbcType="VARCHAR" property="jzxm" />
+    <result column="jzmobile" jdbcType="VARCHAR" property="jzmobile" />
+    <result column="schoolid" jdbcType="VARCHAR" property="schoolid" />
+    <result column="schoolname" jdbcType="VARCHAR" property="schoolname" />
+    <result column="gradeid" jdbcType="VARCHAR" property="gradeid" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="classid" jdbcType="VARCHAR" property="classid" />
+    <result column="classname" jdbcType="VARCHAR" property="classname" />
+    <result column="gsname" jdbcType="VARCHAR" property="gsname" />
+    <result column="gscode" jdbcType="VARCHAR" property="gscode" />
+    <result column="mobileCreate" jdbcType="INTEGER" property="mobilecreate" />
+    <result column="creuserid" jdbcType="INTEGER" property="creuserid" />
+    <result column="creusername" jdbcType="VARCHAR" property="creusername" />
+    <result column="cretime" jdbcType="TIMESTAMP" property="cretime" />
+    <result column="creuserdepid" jdbcType="INTEGER" property="creuserdepid" />
+    <result column="creuserdepname" jdbcType="VARCHAR" property="creuserdepname" />
+    <result column="modifyuserid" jdbcType="INTEGER" property="modifyuserid" />
+    <result column="modifyusername" jdbcType="VARCHAR" property="modifyusername" />
+    <result column="modifytime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="modifyuserdepid" jdbcType="INTEGER" property="modifyuserdepid" />
+    <result column="modifyuserdepname" jdbcType="VARCHAR" property="modifyuserdepname" />
+    <result column="enabled" jdbcType="INTEGER" property="enabled" />
+    <result column="fAcctID" jdbcType="INTEGER" property="facctid" />
+    <result column="wx_id" jdbcType="VARCHAR" property="wxId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, org_id, org_full_id, studentname, sex, xh, sfpks, jzxm, jzmobile, schoolid, schoolname, 
+    gradeid, grade, classid, classname, gsname, gscode, mobileCreate, creuserid, creusername, 
+    cretime, creuserdepid, creuserdepname, modifyuserid, modifyusername, modifytime, 
+    modifyuserdepid, modifyuserdepname, enabled, fAcctID, wx_id
+  </sql>
+  <select id="selectByExample" parameterType="com.tdzx.user.domain.BusiStudentinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from busi_studentinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from busi_studentinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from busi_studentinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tdzx.user.domain.BusiStudentinfoExample">
+    delete from busi_studentinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tdzx.user.domain.BusiStudentinfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into busi_studentinfo (id,org_id, org_full_id, studentname,
+      sex, xh, sfpks, jzxm, 
+      jzmobile, schoolid, schoolname, 
+      gradeid, grade, classid, 
+      classname, gsname, gscode, 
+      mobileCreate, creuserid, creusername, 
+      cretime, creuserdepid, creuserdepname, 
+      modifyuserid, modifyusername, modifytime, 
+      modifyuserdepid, modifyuserdepname, enabled, 
+      fAcctID, wx_id)
+    values (#{id,jdbcType=VARCHAR},#{orgId,jdbcType=VARCHAR}, #{orgFullId,jdbcType=VARCHAR}, #{studentname,jdbcType=VARCHAR},
+      #{sex,jdbcType=VARCHAR}, #{xh,jdbcType=VARCHAR}, #{sfpks,jdbcType=VARCHAR}, #{jzxm,jdbcType=VARCHAR}, 
+      #{jzmobile,jdbcType=VARCHAR}, #{schoolid,jdbcType=VARCHAR}, #{schoolname,jdbcType=VARCHAR}, 
+      #{gradeid,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{classid,jdbcType=VARCHAR}, 
+      #{classname,jdbcType=VARCHAR}, #{gsname,jdbcType=VARCHAR}, #{gscode,jdbcType=VARCHAR}, 
+      #{mobilecreate,jdbcType=INTEGER}, #{creuserid,jdbcType=INTEGER}, #{creusername,jdbcType=VARCHAR}, 
+      #{cretime,jdbcType=TIMESTAMP}, #{creuserdepid,jdbcType=INTEGER}, #{creuserdepname,jdbcType=VARCHAR}, 
+      #{modifyuserid,jdbcType=INTEGER}, #{modifyusername,jdbcType=VARCHAR}, #{modifytime,jdbcType=TIMESTAMP}, 
+      #{modifyuserdepid,jdbcType=INTEGER}, #{modifyuserdepname,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, 
+      #{facctid,jdbcType=INTEGER}, #{wxId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tdzx.user.domain.BusiStudentinfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into busi_studentinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="orgFullId != null">
+        org_full_id,
+      </if>
+      <if test="studentname != null">
+        studentname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="xh != null">
+        xh,
+      </if>
+      <if test="sfpks != null">
+        sfpks,
+      </if>
+      <if test="jzxm != null">
+        jzxm,
+      </if>
+      <if test="jzmobile != null">
+        jzmobile,
+      </if>
+      <if test="schoolid != null">
+        schoolid,
+      </if>
+      <if test="schoolname != null">
+        schoolname,
+      </if>
+      <if test="gradeid != null">
+        gradeid,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="classid != null">
+        classid,
+      </if>
+      <if test="classname != null">
+        classname,
+      </if>
+      <if test="gsname != null">
+        gsname,
+      </if>
+      <if test="gscode != null">
+        gscode,
+      </if>
+      <if test="mobilecreate != null">
+        mobileCreate,
+      </if>
+      <if test="creuserid != null">
+        creuserid,
+      </if>
+      <if test="creusername != null">
+        creusername,
+      </if>
+      <if test="cretime != null">
+        cretime,
+      </if>
+      <if test="creuserdepid != null">
+        creuserdepid,
+      </if>
+      <if test="creuserdepname != null">
+        creuserdepname,
+      </if>
+      <if test="modifyuserid != null">
+        modifyuserid,
+      </if>
+      <if test="modifyusername != null">
+        modifyusername,
+      </if>
+      <if test="modifytime != null">
+        modifytime,
+      </if>
+      <if test="modifyuserdepid != null">
+        modifyuserdepid,
+      </if>
+      <if test="modifyuserdepname != null">
+        modifyuserdepname,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="facctid != null">
+        fAcctID,
+      </if>
+      <if test="wxId != null">
+        wx_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgFullId != null">
+        #{orgFullId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null">
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null">
+        #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="sfpks != null">
+        #{sfpks,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxm != null">
+        #{jzxm,jdbcType=VARCHAR},
+      </if>
+      <if test="jzmobile != null">
+        #{jzmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolid != null">
+        #{schoolid,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolname != null">
+        #{schoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeid != null">
+        #{gradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null">
+        #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="gsname != null">
+        #{gsname,jdbcType=VARCHAR},
+      </if>
+      <if test="gscode != null">
+        #{gscode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilecreate != null">
+        #{mobilecreate,jdbcType=INTEGER},
+      </if>
+      <if test="creuserid != null">
+        #{creuserid,jdbcType=INTEGER},
+      </if>
+      <if test="creusername != null">
+        #{creusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cretime != null">
+        #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creuserdepid != null">
+        #{creuserdepid,jdbcType=INTEGER},
+      </if>
+      <if test="creuserdepname != null">
+        #{creuserdepname,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyuserid != null">
+        #{modifyuserid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyusername != null">
+        #{modifyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyuserdepid != null">
+        #{modifyuserdepid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyuserdepname != null">
+        #{modifyuserdepname,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="facctid != null">
+        #{facctid,jdbcType=INTEGER},
+      </if>
+      <if test="wxId != null">
+        #{wxId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tdzx.user.domain.BusiStudentinfoExample" resultType="java.lang.Long">
+    select count(*) from busi_studentinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update busi_studentinfo
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgId != null">
+        org_id = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgFullId != null">
+        org_full_id = #{record.orgFullId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentname != null">
+        studentname = #{record.studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xh != null">
+        xh = #{record.xh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfpks != null">
+        sfpks = #{record.sfpks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jzxm != null">
+        jzxm = #{record.jzxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jzmobile != null">
+        jzmobile = #{record.jzmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolid != null">
+        schoolid = #{record.schoolid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolname != null">
+        schoolname = #{record.schoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradeid != null">
+        gradeid = #{record.gradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null">
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classid != null">
+        classid = #{record.classid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classname != null">
+        classname = #{record.classname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gsname != null">
+        gsname = #{record.gsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gscode != null">
+        gscode = #{record.gscode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilecreate != null">
+        mobileCreate = #{record.mobilecreate,jdbcType=INTEGER},
+      </if>
+      <if test="record.creuserid != null">
+        creuserid = #{record.creuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.creusername != null">
+        creusername = #{record.creusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cretime != null">
+        cretime = #{record.cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creuserdepid != null">
+        creuserdepid = #{record.creuserdepid,jdbcType=INTEGER},
+      </if>
+      <if test="record.creuserdepname != null">
+        creuserdepname = #{record.creuserdepname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyuserid != null">
+        modifyuserid = #{record.modifyuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyusername != null">
+        modifyusername = #{record.modifyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifytime != null">
+        modifytime = #{record.modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyuserdepid != null">
+        modifyuserdepid = #{record.modifyuserdepid,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyuserdepname != null">
+        modifyuserdepname = #{record.modifyuserdepname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.facctid != null">
+        fAcctID = #{record.facctid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxId != null">
+        wx_id = #{record.wxId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update busi_studentinfo
+    set id = #{record.id,jdbcType=VARCHAR},
+      org_id = #{record.orgId,jdbcType=VARCHAR},
+      org_full_id = #{record.orgFullId,jdbcType=VARCHAR},
+      studentname = #{record.studentname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      xh = #{record.xh,jdbcType=VARCHAR},
+      sfpks = #{record.sfpks,jdbcType=VARCHAR},
+      jzxm = #{record.jzxm,jdbcType=VARCHAR},
+      jzmobile = #{record.jzmobile,jdbcType=VARCHAR},
+      schoolid = #{record.schoolid,jdbcType=VARCHAR},
+      schoolname = #{record.schoolname,jdbcType=VARCHAR},
+      gradeid = #{record.gradeid,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=VARCHAR},
+      classid = #{record.classid,jdbcType=VARCHAR},
+      classname = #{record.classname,jdbcType=VARCHAR},
+      gsname = #{record.gsname,jdbcType=VARCHAR},
+      gscode = #{record.gscode,jdbcType=VARCHAR},
+      mobileCreate = #{record.mobilecreate,jdbcType=INTEGER},
+      creuserid = #{record.creuserid,jdbcType=INTEGER},
+      creusername = #{record.creusername,jdbcType=VARCHAR},
+      cretime = #{record.cretime,jdbcType=TIMESTAMP},
+      creuserdepid = #{record.creuserdepid,jdbcType=INTEGER},
+      creuserdepname = #{record.creuserdepname,jdbcType=VARCHAR},
+      modifyuserid = #{record.modifyuserid,jdbcType=INTEGER},
+      modifyusername = #{record.modifyusername,jdbcType=VARCHAR},
+      modifytime = #{record.modifytime,jdbcType=TIMESTAMP},
+      modifyuserdepid = #{record.modifyuserdepid,jdbcType=INTEGER},
+      modifyuserdepname = #{record.modifyuserdepname,jdbcType=VARCHAR},
+      enabled = #{record.enabled,jdbcType=INTEGER},
+      fAcctID = #{record.facctid,jdbcType=INTEGER},
+      wx_id = #{record.wxId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tdzx.user.domain.BusiStudentinfo">
+    update busi_studentinfo
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgFullId != null">
+        org_full_id = #{orgFullId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null">
+        studentname = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null">
+        xh = #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="sfpks != null">
+        sfpks = #{sfpks,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxm != null">
+        jzxm = #{jzxm,jdbcType=VARCHAR},
+      </if>
+      <if test="jzmobile != null">
+        jzmobile = #{jzmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolid != null">
+        schoolid = #{schoolid,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolname != null">
+        schoolname = #{schoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeid != null">
+        gradeid = #{gradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null">
+        classid = #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        classname = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="gsname != null">
+        gsname = #{gsname,jdbcType=VARCHAR},
+      </if>
+      <if test="gscode != null">
+        gscode = #{gscode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilecreate != null">
+        mobileCreate = #{mobilecreate,jdbcType=INTEGER},
+      </if>
+      <if test="creuserid != null">
+        creuserid = #{creuserid,jdbcType=INTEGER},
+      </if>
+      <if test="creusername != null">
+        creusername = #{creusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cretime != null">
+        cretime = #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creuserdepid != null">
+        creuserdepid = #{creuserdepid,jdbcType=INTEGER},
+      </if>
+      <if test="creuserdepname != null">
+        creuserdepname = #{creuserdepname,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyuserid != null">
+        modifyuserid = #{modifyuserid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyusername != null">
+        modifyusername = #{modifyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyuserdepid != null">
+        modifyuserdepid = #{modifyuserdepid,jdbcType=INTEGER},
+      </if>
+      <if test="modifyuserdepname != null">
+        modifyuserdepname = #{modifyuserdepname,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="facctid != null">
+        fAcctID = #{facctid,jdbcType=INTEGER},
+      </if>
+      <if test="wxId != null">
+        wx_id = #{wxId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tdzx.user.domain.BusiStudentinfo">
+    update busi_studentinfo
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      org_full_id = #{orgFullId,jdbcType=VARCHAR},
+      studentname = #{studentname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      xh = #{xh,jdbcType=VARCHAR},
+      sfpks = #{sfpks,jdbcType=VARCHAR},
+      jzxm = #{jzxm,jdbcType=VARCHAR},
+      jzmobile = #{jzmobile,jdbcType=VARCHAR},
+      schoolid = #{schoolid,jdbcType=VARCHAR},
+      schoolname = #{schoolname,jdbcType=VARCHAR},
+      gradeid = #{gradeid,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      classid = #{classid,jdbcType=VARCHAR},
+      classname = #{classname,jdbcType=VARCHAR},
+      gsname = #{gsname,jdbcType=VARCHAR},
+      gscode = #{gscode,jdbcType=VARCHAR},
+      mobileCreate = #{mobilecreate,jdbcType=INTEGER},
+      creuserid = #{creuserid,jdbcType=INTEGER},
+      creusername = #{creusername,jdbcType=VARCHAR},
+      cretime = #{cretime,jdbcType=TIMESTAMP},
+      creuserdepid = #{creuserdepid,jdbcType=INTEGER},
+      creuserdepname = #{creuserdepname,jdbcType=VARCHAR},
+      modifyuserid = #{modifyuserid,jdbcType=INTEGER},
+      modifyusername = #{modifyusername,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      modifyuserdepid = #{modifyuserdepid,jdbcType=INTEGER},
+      modifyuserdepname = #{modifyuserdepname,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=INTEGER},
+      fAcctID = #{facctid,jdbcType=INTEGER},
+      wx_id = #{wxId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findStudentByVXID" resultMap="BaseResultMap">
+      select * from busi_studentinfo where wx_id = #{wx_id} and enabled=1
+  </select>
+
+  <select id="findStudentByAcctID" resultMap="BaseResultMap">
+      select * from busi_studentinfo where fAcctID = #{fAcctID} and enabled=1 limit 1
+  </select>
+
+  <select id="findStudentListByAcctID" resultMap="BaseResultMap">
+      select * from busi_studentinfo where fAcctID = #{fAcctID} and enabled=1
+  </select>
+
+  <select id="findStudentByBussType" resultType="com.tdzx.user.domain.BusiStudentinfo">
+      select
+      stu.* ,
+      mainuser.fMobile fMainMobile
+      from busi_studentinfo stu
+      left join acc_main_user mainuser on stu.fAcctID = mainuser.fInnerID
+      where 1=1
+      <if test="studentname!=null  and studentname!=''">
+        and stu.studentname LIKE CONCAT("%",#{studentname},"%")
+      </if>
+  </select>
+
+</mapper>
