@@ -40,7 +40,7 @@
         <pinyin4j.version>2.5.1</pinyin4j.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
         <aspectjweaver.version>1.8.13</aspectjweaver.version>
-        <poi.version>3.17</poi.version>
+        <poi.version>4.1.1</poi.version>
         <!--支付宝支付-->
         <alipay-sdk.version>3.0.52.ALL</alipay-sdk.version>
         <!--微信支付-->
