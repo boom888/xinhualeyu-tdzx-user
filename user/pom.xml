@@ -28,7 +28,7 @@
         <fastjson.version>1.2.41</fastjson.version>
         <fastdfs.version>1.27.0.0</fastdfs.version>
         <jackson-dataformat-xml.version>2.9.2</jackson-dataformat-xml.version>
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.10.0</shiro.version>
         <mybatis-plus.version>2.1.1</mybatis-plus.version>
         <mysql.version>5.1.45</mysql.version>
         <druid.version>1.1.6</druid.version>
